@@ -1,0 +1,6 @@
+#!/bin/sh
+export J2D_D3D=false
+export SWT_GTK3=1
+wmname LG3
+export GTK_THEME=Clearlooks
+/opt/4diac-ide/4diac-ide

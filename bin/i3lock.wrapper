@@ -1,0 +1,9 @@
+#!/bin/zsh
+if [ $(playerctl status) = "Playing" ]
+then
+    playerctl pause
+    i3lock -n
+    playerctl play
+else
+    i3lock
+fi

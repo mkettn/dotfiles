@@ -1,0 +1,15 @@
+#!/bin/bash
+VITIS_PATH=/opt/Xilinx/Vitis/2019.2/
+VITIS_TMP_DIR=`mktemp -d /tmp/vitis2019.2.XXXX`
+
+
+export J2D_D3D=false
+export _JAVA_OPTIONS="-Dsun.java2d.dpiaware=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dsun.java2d.xrender=true"
+export SWT_GTK3=0
+wmname LG3
+source $VITIS_PATH/settings64.sh
+
+# change to a temp dir, vitis will create logfiles and journal files here
+cd $VITIS_TMP_DIR
+
+$VITIS_PATH/bin/vitis "$@"

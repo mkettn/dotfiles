@@ -1,0 +1,8 @@
+#!/bin/zsh
+if lsusb | grep 046d:c31c
+then
+    [ $(xrandr --query | grep -c " connected ") = 2 ] && \
+        $HOME/.screenlayout/desktop-home.sh
+else
+    $HOME/.screenlayout/laptop.sh
+fi

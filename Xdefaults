@@ -1,0 +1,70 @@
+URxvt.saveLines: 1000
+URxvt.scrollBar: false
+URxvt.scrollBar_right: true
+URxvt.geometry: 80x24
+URxvt.foreground: #D8D8D8
+URxvt.background: #2E3436
+URxvt.secondaryScroll: true
+URxvt.font: xft:Monospace:size=11:antialias=true
+URxvt.letterSpace: -1
+URxvt.internalBorder: 1
+URxvt.skipBuildInGlyphs: true
+URxvt.fading: 20
+URxvt.fadeColor: black
+URxvt.perl-ext-common: default,matcher,vtwheel,xkr-clipboard
+URxvt.iso14755:               false
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.urlLauncher: /usr/bin/x-www-browser
+URxvt.matcher.button: 1
+
+!! sane termname
+URxvt.termName: xterm-256color
+!! URxvt*loginShell: true
+
+!! Working Home and End Keys
+URxvt.keysym.Home: \033OH
+URxvt.keysym.End: \033OF
+URxvt.keysym.KP_Home: \033OH
+URxvt.keysym.KP_End:  \033OF
+
+
+!! Solarized Color theme:
+*background: #002b36
+*foreground: #657b83
+!!*fading: 40
+*fadeColor: #002b36
+*cursorColor: #93a1a1
+*pointerColorBackground: #586e75
+*pointerColorForeground: #93a1a1
+
+!! black dark/light
+*color0: #073642
+*color8: #002b36
+
+!! red dark/light
+*color1: #dc322f
+*color9: #cb4b16
+
+!! green dark/light
+*color2: #859900
+*color10: #586e75
+
+!! yellow dark/light
+*color3: #b58900
+*color11: #657b83
+
+!! blue dark/light
+*color4: #268bd2
+*color12: #839496
+
+!! magenta dark/light
+*color5: #d33682
+*color13: #6c71c4
+
+!! cyan dark/light
+*color6: #2aa198
+*color14: #93a1a1
+
+!! white dark/light
+*color7: #eee8d5
+*color15: #fdf6e3
