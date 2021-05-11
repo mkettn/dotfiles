@@ -183,3 +183,15 @@ bindsym Shift+Print exec scrot -s
 # change workspace layouts:
 bindsym $mod+c exec $HOME/.screenlayout/conference.sh
 bindsym $mod+x exec $HOME/bin/sanitize-screen
+
+
+# Floating windows
+for_window [window_role="task_dialog|bubble|page-info|Preferences|pop-up"] floating enable
+for_window [window_role="Open Files"] floating enable sticky
+for_window [window_role="File Operation Progress"] floating enable sticky
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+# Sticky window
+for_window [instance="file_progress"]  sticky enable
+for_window [class="info|Mate-color-select|gcolor2|timesup|QtPass|GtkFileChooserDialog"] sticky enable
