@@ -195,3 +195,7 @@ for_window [window_type="menu"] floating enable
 # Sticky window
 for_window [instance="file_progress"]  sticky enable
 for_window [class="info|Mate-color-select|gcolor2|timesup|QtPass|GtkFileChooserDialog"] sticky enable
+
+# Local Variables:
+# mode: conf-space
+# End:
