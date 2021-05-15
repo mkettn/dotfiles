@@ -66,7 +66,6 @@ values."
               LaTeX-section-section
               LaTeX-section-label))
      markdown
-     protobuf
      (python :variables
              flycheck-python-flake8-executable "python3"
              flycheck-python-pycompile-executable "python3"
