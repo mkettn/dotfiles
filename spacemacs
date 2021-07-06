@@ -71,7 +71,8 @@ values."
              flycheck-python-pycompile-executable "python3"
              flycheck-python-pylint-executable "python3"
              flycheck-checker-error-threshold 2000
-	     )
+             )
+     rust
      (shell :variables
              shell-default-height 30
              shell-default-position 'bottom)
