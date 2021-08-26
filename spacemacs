@@ -41,9 +41,8 @@ This function should only modify configuration layer settings."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t
             c-default-style "linux"
-						tab-width 8
-						indent-tabs-mode t
-						)
+	    tab-width 8
+	    indent-tabs-mode t)
      csv
      cmake
      emacs-lisp
@@ -57,6 +56,10 @@ This function should only modify configuration layer settings."
             TeX-view-program-selection '(
 					 (output-pdf "Zathura")
 					 (output-html "xdg-open"))
+	    reftex-enable-partial-scans t
+	    reftex-save-parse-info t
+	    reftex-use-multiple-selection-buffers t
+	    reftex-plug-into-AUCTeX t
             TeX-auto-save t
             TeX-parse-self t
 	    latex-enable-folding t
@@ -73,7 +76,8 @@ This function should only modify configuration layer settings."
              flycheck-python-pycompile-executable "python3"
              flycheck-python-pylint-executable "python3"
              flycheck-checker-error-threshold 2000
-             )
+	     python-shell-interpreter "ipython"
+	     python-shell-interpreter-args "--simple-prompt -i")
      rust
      (shell :variables
              shell-default-height 30
@@ -91,8 +95,8 @@ This function should only modify configuration layer settings."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(sed-mode yasnippet-snippets lsp-mode lsp-ui
-   spice-mode arduino-mode disaster elf-mode magit-lfs ox-pandoc ein helm-lsp
+   dotspacemacs-additional-packages '(sed-mode yasnippet-snippets
+   spice-mode arduino-mode disaster elf-mode magit-lfs ox-pandoc ein
    auth-source-pass w3m forge r-autoyas nhexl-mode ebib ob-ipython dts-mode gnu-elpa-keyring-update
    graphviz-dot-mode  platformio-mode irony protobuf-mode nov)
    ;; A list of packages that cannot be updated.
@@ -543,7 +547,8 @@ See the header of this file for more information."
 This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
-If you are unsure, try setting them in `dotspacemacs/user-config' first.")
+If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -564,69 +569,55 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (add-to-list 'auto-mode-alist '("\\.md" . markdown-mode
-				  "\\.inc" . makefile-mode))
-  (define-key evil-normal-state-map (kbd "SPC mm")
-    (lambda ()
-      (interactive)
-      (insert " %>% ")
-      (evil-insert-state)
-      ))
+  ;; python
   (with-eval-after-load 'python
     (setq python-shell-interpreter "ipython"
           python-shell-interpreter-args "--simple-prompt -i")
     (local-set-key (kbd "M-.") 'spacemacs/jump-to-definition))
-  (add-hook 'message-mode-hook 'auto-fill-mode)
-    (add-to-list 'image-type-file-name-regexps '("\\.eps\\'" . postscript))
-    (add-to-list 'image-file-name-extensions "eps")
+
+  ;; asm
   (defun my-asm-mode-hook ()
     ;; you can use `comment-dwim' (M-;) for this kind of behaviour anyway
     (local-unset-key (vector asm-comment-char))
     ;; asm-mode sets it locally to nil, to "stay closer to the old TAB behaviour".
     (setq tab-always-indent (default-value 'tab-always-indent)))
   (add-hook 'asm-mode-hook #'my-asm-mode-hook)
+
+  ;; vhdl
   (add-hook 'vhdl-mode-hook (lambda()
                               (flycheck-mode t)
                               (menu-bar-mode t)))
-  (auth-source-pass-enable)
-  (setq reftex-enable-partial-scans t
-        reftex-save-parse-info t
-        reftex-use-multiple-selection-buffers t)
-  ; (setq adict-language-list '(nil "en" "de"))
-  ;; load yasnippets (just a fix)
-  (yasnippet-snippets-initialize)
-  ;; (require 'lsp-mode)
-  ;; (add-hook 'vhdl-mode-hook #'lsp)
-  ;; (add-to-list 'lsp-language-id-configuration '(vhdl-mode . "vhdl"))
-  ;; (lsp-register-client
-  ;;  (make-lsp-client :new-connection (lsp-stdio-connection '("ghdl-ls" "-v" "--trace-file=/tmp/emacs.d/vhdl-ls.trace"))
-  ;;                   :major-modes '(vhdl-mode)
-  ;;                   :priority -1
-  ;;                   :server-id 'lsp-vhdl-mode))
-  ;; (add-hook 'vhdl-mode-hook 'flycheck-mode)
-  ;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
+  ;; LaTeX: turn on auto labelling
+  (add-hook 'LaTeX-mode-hook (function turn-on-reftex))
+
+  ;; initialisation functions for minor modes:
+  (auth-source-pass-enable)
+  (global-company-mode)
+  (yasnippet-snippets-initialize)
+
+  ;; terminal and frame parameters:
   (set-terminal-parameter nil 'background-mode 'dark)
   (set-frame-parameter nil 'background-mode 'dark)
-  ;; turn on gnuplot mode for gnuplot files
-  (setq auto-mode-alist (append '(
-          ("\\.gp$" . gnuplot-mode)
-				  ("\\.cir$" . spice-mode)
-				  ("\\.ino$" . arduino-mode)
-				  ("\\.launch$" . xml-mode)
-				  ("\\.elf$" . elf-mode)
-				  ("\\.bsd$" . vhdl-mode)
-					("\\.s$" . asm-mode)
-          ("\\.epub\\'" . nov-mode)
-          ("\\.mtl$" . python-mode))
-                                auto-mode-alist))
-  ;; turn on auto labelling
-  (add-hook 'LaTeX-mode-hook (function turn-on-reftex))
-  (setq reftex-plug-into-AUCTeX t)
+
+  ;; auto modes for custom file extensions
+  (setq auto-mode-alist
+	(append '(("\\.gp$" . gnuplot-mode)
+		  ("\\.cir$" . spice-mode)
+		  ("\\.ino$" . arduino-mode)
+		  ("\\.launch$" . xml-mode)
+		  ("\\.elf$" . elf-mode)
+		  ("\\.bsd$" . vhdl-mode)
+		  ("\\.s$" . asm-mode)
+		  ("\\.epub\\'" . nov-mode)
+		  ("\\.mtl$" . python-mode)
+		  ("\\.md" . markdown-mode)
+		  ("\\.inc" . makefile-mode))
+		auto-mode-alist))
+
   ;; kill all magit-buffer without asking
   (flet ((kill-buffer-ask (buffer) (kill-buffer buffer)))
     (kill-matching-buffers "magit*"))
-(global-company-mode)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
