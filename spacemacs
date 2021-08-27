@@ -96,9 +96,10 @@ This function should only modify configuration layer settings."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(sed-mode yasnippet-snippets
-   spice-mode arduino-mode disaster elf-mode magit-lfs ox-pandoc ein
-   auth-source-pass w3m forge r-autoyas nhexl-mode ebib ob-ipython dts-mode gnu-elpa-keyring-update
-   graphviz-dot-mode  platformio-mode irony protobuf-mode nov)
+   spice-mode arduino-mode disaster elf-mode magit-lfs ox-pandoc
+   ein flatbuffers-mode auth-source-pass w3m forge r-autoyas
+   nhexl-mode ebib ob-ipython dts-mode gnu-elpa-keyring-update
+   graphviz-dot-mode platformio-mode irony protobuf-mode nov)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
@@ -612,6 +613,7 @@ you should place your code here."
 		  ("\\.epub\\'" . nov-mode)
 		  ("\\.mtl$" . python-mode)
 		  ("\\.md" . markdown-mode)
+		  ("\\.fbs" . flatbuffers-mode)
 		  ("\\.inc" . makefile-mode))
 		auto-mode-alist))
 
@@ -677,3 +679,64 @@ use ieee.std_logic_1164.all;
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(custom-safe-themes
+   (quote
+    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
+ '(evil-want-Y-yank-to-eol nil)
+ '(flycheck-lintr-linters "r-lintr")
+ '(graphviz-dot-indent-width 4)
+ '(package-selected-packages
+   (quote
+    (flatbuffers-mode posframe bibtex-completion intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode gnu-elpa-keyring-update let-alist spinner kubernetes anaphora helm-lsp nov esxml lsp-ui lsp-mode protobuf-mode dts-mode irony ob-ipython ein deferred websocket poly-R poly-noweb poly-markdown polymode ebib nhexl-mode transient lv r-autoyas forge closql emacsql-sqlite emacsql ess-smart-equals ess-R-data-view ctable ess julia-mode w3m auth-source-pass ox-pandoc ox-reveal mu4e-maildirs-extension mu4e-alert ht offlineimap rcirc-notify rcirc-color circe web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode magit-lfs treepy graphql x86-lookup spice-mode nasm-mode insert-shebang graphviz-dot-mode flyspell-popup fish-mode company-shell log4e gntp parent-mode request fringe-helper git-gutter+ git-gutter pos-tip flx anzu diminish bind-map auto-complete popup elf-mode yaml-mode erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks arduino-mode platformio-mode org-category-capture packed gitignore-mode s yasnippet-snippets sed-mode iedit highlight epl org-mime powerline csv-mode yasnippet async dash web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help org-ref pdf-tools key-chord ivy tablist helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex flyspell-correct ghub bind-key company helm helm-core avy magit-popup git-commit with-editor hydra helm-gtags ggtags org-plus-contrib yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc disaster cython-mode company-c-headers company-anaconda color-theme-solarized color-theme cmake-mode clang-format anaconda-mode pythonic org-pomodoro org-download evil-nerd-commenter ace-window ace-link smartparens f evil flycheck markdown-mode projectile magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin pkg-info persp-mode pcre2el paradox orgit org-projectile org-present org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag goto-chg google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diff-hl define-word company-statistics company-auctex column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alert aggressive-indent adaptive-wrap ace-jump-helm-line ac-ispell)))
+ '(password-cache-expiry nil)
+ '(safe-local-variable-values
+   (quote
+    ((TeX-command-master . make)
+     (virtualenv-workon . "venv")
+     (evil-shift-width . 4)
+     (flyspell-mode)
+     (csv-separators ";")
+     (disaster-objdump . "arm-none-eabi-objdump -d -Sl --no-show-raw-insn")
+     (ispell-change-dictionary . "de_DE-neu"))))
+ '(vhdl-company-name "OFFIS e.V.")
+ '(vhdl-file-header
+   "-------------------------------------------------------------------------------
+-- Title      : <title string>
+-- Project    : <project>
+-------------------------------------------------------------------------------
+-- File       : <filename>
+-- Author     : <author>
+-- Company    : <company>
+-- Created    : <date>
+-- Last update: <date>
+-- Platform   : <platform>
+-- Standard   : <standard>
+<projectdesc>-------------------------------------------------------------------------------
+-- Description: <cursor>
+<copyright>-------------------------------------------------------------------------------
+-- Revisions  :
+-- Date        Version  Author  Description
+-- <date>  1.0      <login>	Created
+-------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
