@@ -6,7 +6,7 @@ URxvt.foreground: #D8D8D8
 URxvt.background: #2E3436
 URxvt.secondaryScroll: true
 URxvt.font: xft:Monospace:size=11:antialias=true
-URxvt.letterSpace: -1
+URxvt.letterSpace: 0
 URxvt.internalBorder: 1
 URxvt.skipBuildInGlyphs: true
 URxvt.fading: 20
