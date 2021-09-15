@@ -97,7 +97,7 @@ This function should only modify configuration layer settings."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(sed-mode yasnippet-snippets
    spice-mode arduino-mode disaster elf-mode magit-lfs ox-pandoc
-   ein flatbuffers-mode auth-source-pass w3m forge r-autoyas
+   ein flatbuffers-mode auth-source-pass w3m forge r-autoyas bazel
    nhexl-mode ebib ob-ipython dts-mode gnu-elpa-keyring-update
    graphviz-dot-mode platformio-mode irony protobuf-mode nov)
    ;; A list of packages that cannot be updated.
@@ -614,6 +614,7 @@ you should place your code here."
 		  ("\\.mtl$" . python-mode)
 		  ("\\.md" . markdown-mode)
 		  ("\\.fbs" . flatbuffers-mode)
+		  ("\\.g4$" . antlr-mode)
 		  ("\\.inc" . makefile-mode))
 		auto-mode-alist))
 
