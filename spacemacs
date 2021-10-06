@@ -36,13 +36,16 @@ This function should only modify configuration layer settings."
 		      auto-completion-enable-snippets-in-popup t)
      better-defaults
      bibtex
+     (lsp :variables
+	  lsp-restart 'auto-restart) ; if the server exits, just restart it without prompting
+     (dap :variables
+	; don't display the mouse buttons
+	  dap-enable-ui-controls nil
+	; use the auto-configure layout, but no mouse buttons
+	  dap-auto-configure-features '(sessions locals breakpoints expressions tooltip))
      (c-c++ :variables
-            c-c++-enable-clang-support t
-            c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t
-            c-default-style "linux"
-	    tab-width 8
-	    indent-tabs-mode t)
+            c-c++-backend 'lsp-clangd
+            )
      csv
      cmake
      emacs-lisp
@@ -76,7 +79,6 @@ This function should only modify configuration layer settings."
              flycheck-python-pycompile-executable "python3"
              flycheck-python-pylint-executable "python3"
              flycheck-checker-error-threshold 2000
-	     flycheck-c/c++-clang-executable "clang-10"
 	     python-shell-interpreter "ipython"
 	     python-shell-interpreter-args "--simple-prompt -i")
      rust
@@ -96,7 +98,7 @@ This function should only modify configuration layer settings."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(sed-mode yasnippet-snippets flycheck-clang-tidy
+   dotspacemacs-additional-packages '(sed-mode yasnippet-snippets
    spice-mode arduino-mode disaster elf-mode magit-lfs ox-pandoc
    ein flatbuffers-mode auth-source-pass w3m forge r-autoyas bazel
    nhexl-mode ebib ob-ipython dts-mode gnu-elpa-keyring-update
@@ -576,7 +578,6 @@ you should place your code here."
     (setq python-shell-interpreter "ipython"
           python-shell-interpreter-args "--simple-prompt -i")
     (local-set-key (kbd "M-.") 'spacemacs/jump-to-definition))
-
   ;; asm
   (defun my-asm-mode-hook ()
     ;; you can use `comment-dwim' (M-;) for this kind of behaviour anyway

@@ -94,3 +94,4 @@ alias python="python3"
 alias pip="python -m pip"
 export LESS='-R'
 export LESSOPEN='|pygmentize -g %s'
+export CMAKE_EXPORT_COMPILE_COMMANDS=1
