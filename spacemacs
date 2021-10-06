@@ -31,13 +31,16 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layer-path '("~/.emacs.d/private/")
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '((auto-completion :variables
-		      auto-completion-enable-sort-by-usage t
-		      auto-completion-enable-snippets-in-popup t)
+   '(
+   ;;  (auto-completion :variables
+	 ;;        auto-completion-enable-sort-by-usage t
+	 ;;        auto-completion-enable-snippets-in-popup t)
      better-defaults
      bibtex
      (lsp :variables
-	  lsp-restart 'auto-restart) ; if the server exits, just restart it without prompting
+          ; if the server exits, just restart it without prompting
+          lsp-restart 'auto-restart
+          )
      (dap :variables
 	; don't display the mouse buttons
 	  dap-enable-ui-controls nil
@@ -45,12 +48,14 @@ This function should only modify configuration layer settings."
 	  dap-auto-configure-features '(sessions locals breakpoints expressions tooltip))
      (c-c++ :variables
             c-c++-backend 'lsp-clangd
+            clang-format-style "file"
+            clang-format-executable "clang-format-10"
+            tab-width 8
             )
      csv
      cmake
      emacs-lisp
      git
-     gtags
      helm
      html
      javascript
