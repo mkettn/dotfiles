@@ -76,6 +76,7 @@ This function should only modify configuration layer settings."
              flycheck-python-pycompile-executable "python3"
              flycheck-python-pylint-executable "python3"
              flycheck-checker-error-threshold 2000
+	     flycheck-c/c++-clang-executable "clang-10"
 	     python-shell-interpreter "ipython"
 	     python-shell-interpreter-args "--simple-prompt -i")
      rust
@@ -95,7 +96,7 @@ This function should only modify configuration layer settings."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(sed-mode yasnippet-snippets
+   dotspacemacs-additional-packages '(sed-mode yasnippet-snippets flycheck-clang-tidy
    spice-mode arduino-mode disaster elf-mode magit-lfs ox-pandoc
    ein flatbuffers-mode auth-source-pass w3m forge r-autoyas bazel
    nhexl-mode ebib ob-ipython dts-mode gnu-elpa-keyring-update
