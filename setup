@@ -4,45 +4,23 @@ from os import symlink
 from shutil import move
 from pathlib import Path
 
-
-src_files = [
-    "spacemacs",
-    "Xdefaults",
-    "zshrc",
-    "i3config",
-    "i3statusconfig",
-    "urxvt_ext",
-    "screenlayout",
-    "zshrc.d",
-
-]
-target_files = [
-    "~/.spacemacs",
-    "~/.Xdefaults",
-    "~/.zshrc",
-    "~/.config/i3/config",
-    "~/.config/i3status/config",
-    "~/.urxvt/ext",
-    "~/.screenlayout",
-    "~/.zshrc.d"
-]
-
-src_folders = [
-    "bin",
-]
-
-trg_folders = [
-    "~/bin",
-]
+LINKS = {
+    "spacemacs":"~/.spacemacs",
+    "Xdefaults":"~/.Xdefaults",
+    "zshrc":"~/.zshrc",
+    "i3config":"~/.config/i3/config",
+    "i3statusconfig":"~/.config/i3status/config",
+    "urxvt_ext":"~/.urxvt/ext",
+    "screenlayout":"~/.screenlayout",
+    "zshrc.d":"~/.zshrc.d",
+    "arduino/mbed_nano.platform.txt":"~/.arduino15/packages/arduino/hardware/mbed_nano/2.5.2/platform.local.txt",
+}
 
 dotfiles_path = dirname(realpath(__file__))
 
-print("dotfiles location:", dotfiles_path)
-src_files = [join(dotfiles_path, f) for f in src_files]
-target_files = [Path(f).expanduser() for f in target_files]
-
-for src, trg in zip(src_files, target_files):
-    print(f"{src} -> {trg}")
+for src, trg in LINKS.items():
+    src = join(dotfiles_path, src)
+    trg = Path(trg).expanduser()
     if exists(trg) and not islink(trg):
         move(trg, f"{trg}.bak")
         print("target already exists and is not a symlink, creating backup")
@@ -50,4 +28,5 @@ for src, trg in zip(src_files, target_files):
     if islink(trg):
         print(f"{trg} already linked")
     else:
+        print(f"{src} -> {trg}")
         symlink(src, trg)
