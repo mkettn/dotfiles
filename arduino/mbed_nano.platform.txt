@@ -1,0 +1,4 @@
+# use system compiler instead of compiler shipped by arduino
+compiler.path=/usr/bin/
+# use system openocd instead of the one shipped by arduino
+tools.openocd.path=/usr/local
