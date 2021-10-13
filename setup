@@ -4,6 +4,7 @@ from os import symlink
 from shutil import move
 from pathlib import Path
 
+
 src_files = [
     "spacemacs",
     "Xdefaults",
@@ -12,6 +13,8 @@ src_files = [
     "i3statusconfig",
     "urxvt_ext",
     "screenlayout",
+    "zshrc.d",
+
 ]
 target_files = [
     "~/.spacemacs",
@@ -20,7 +23,8 @@ target_files = [
     "~/.config/i3/config",
     "~/.config/i3status/config",
     "~/.urxvt/ext",
-    "~/.screenlayout"
+    "~/.screenlayout",
+    "~/.zshrc.d"
 ]
 
 src_folders = [

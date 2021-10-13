@@ -51,6 +51,7 @@ This function should only modify configuration layer settings."
             clang-format-style "file"
             clang-format-executable "clang-format-10"
             tab-width 8
+	    indent-tabs-mode t
             )
      csv
      cmake

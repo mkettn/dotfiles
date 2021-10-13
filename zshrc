@@ -95,3 +95,9 @@ alias pip="python -m pip"
 export LESS='-R'
 export LESSOPEN='|pygmentize -g %s'
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
+alias apt_sys_upgrade="sudo apt update && sudo apt upgrade -y"
+
+for f in $HOME/.zshrc.d/*;
+do
+    source $f
+done
