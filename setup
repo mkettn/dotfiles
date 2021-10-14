@@ -14,6 +14,7 @@ LINKS = {
     "screenlayout":"~/.screenlayout",
     "zshrc.d":"~/.zshrc.d",
     "arduino/mbed_nano.platform.txt":"~/.arduino15/packages/arduino/hardware/mbed_nano/2.5.2/platform.local.txt",
+    "arduino/avr.platform.txt":"~/.arduino15/packages/arduino/hardware/avr/1.8.3/platform.local.txt",
 }
 
 dotfiles_path = dirname(realpath(__file__))
