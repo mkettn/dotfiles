@@ -623,6 +623,7 @@ you should place your code here."
 		  ("\\.md" . markdown-mode)
 		  ("\\.fbs" . flatbuffers-mode)
 		  ("\\.g4$" . antlr-mode)
+		  ("\\.cu$" . c++-mode)
 		  ("\\.inc" . makefile-mode))
 		auto-mode-alist))
 
