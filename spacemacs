@@ -579,6 +579,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; llvm
+  (add-to-list 'load-path "~/dotfiles/emacs_modes/")
+  (require 'tablegen-mode)
+  (require 'llvm-mode)
   ;; python
   (with-eval-after-load 'python
     (setq python-shell-interpreter "ipython"
@@ -624,6 +628,7 @@ you should place your code here."
 		  ("\\.fbs" . flatbuffers-mode)
 		  ("\\.g4$" . antlr-mode)
 		  ("\\.cu$" . c++-mode)
+		  ("\\.td$" . tablegen-mode)
 		  ("\\.inc" . makefile-mode))
 		auto-mode-alist))
 
