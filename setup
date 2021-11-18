@@ -4,6 +4,11 @@ from os import symlink
 from shutil import move
 from pathlib import Path
 
+
+DOWNLOADS = [
+    "https://github.com/latex-lsp/texlab/releases/download/v3.3.1/texlab-x86_64-linux.tar.gz"
+]
+
 LINKS = {
     "spacemacs":"~/.spacemacs",
     "Xdefaults":"~/.Xdefaults",
