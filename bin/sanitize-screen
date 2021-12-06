@@ -1,8 +1,7 @@
 #!/bin/zsh
 if busctl get-property org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager Docked | grep true
 then
-    [ $(xrandr --query | grep -c " connected ") = 2 ] && \
-        $HOME/.screenlayout/desktop-home.sh
+    $HOME/.screenlayout/desktop-home.sh
 else
     $HOME/.screenlayout/laptop.sh
 fi
