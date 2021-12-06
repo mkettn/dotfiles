@@ -15,6 +15,7 @@ LINKS = {
     "zshrc":"~/.zshrc",
     "i3config":"~/.config/i3/config",
     "i3statusconfig":"~/.config/i3status/config",
+    "latexmkrc":"~/.latexmkrc",
     "urxvt_ext":"~/.urxvt/ext",
     "screenlayout":"~/.screenlayout",
     "zshrc.d":"~/.zshrc.d",
