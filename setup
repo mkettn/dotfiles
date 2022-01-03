@@ -3,10 +3,13 @@ from os.path import islink, exists, dirname, join, realpath
 from os import symlink
 from shutil import move
 from pathlib import Path
+import tarfile
+from urllib.request import urlretrieve
 
 
 DOWNLOADS = [
-    "https://github.com/latex-lsp/texlab/releases/download/v3.3.1/texlab-x86_64-linux.tar.gz"
+    ("https://github.com/latex-lsp/texlab/releases/download/v3.3.1/texlab-x86_64-linux.tar.gz",
+     tarfile.open, [("texlab", "~/bin/texlab")])
 ]
 
 LINKS = {
@@ -23,10 +26,10 @@ LINKS = {
     "arduino/avr.platform.txt":"~/.arduino15/packages/arduino/hardware/avr/1.8.3/platform.local.txt",
 }
 
-dotfiles_path = dirname(realpath(__file__))
+DOTFILES_PATH = dirname(realpath(__file__))
 
 for src, trg in LINKS.items():
-    src = join(dotfiles_path, src)
+    src = join(DOTFILES_PATH, src)
     trg = Path(trg).expanduser()
     if exists(trg) and not islink(trg):
         move(trg, f"{trg}.bak")
@@ -37,3 +40,13 @@ for src, trg in LINKS.items():
     else:
         print(f"{src} -> {trg}")
         symlink(src, trg)
+
+for url, opener, files in DOWNLOADS:
+    print("downloading:", url)
+    local_filename, headers = urlretrieve(url)
+    with opener(local_filename) as zf:
+        for member, trg in files:
+            print(f"extracting: {member} -> {trg}")
+            trg = Path(trg).expanduser()
+            Path(dirname(trg)).mkdir(parents=True, exist_ok=True)
+            zf.extract(member, trg)
