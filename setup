@@ -9,7 +9,7 @@ from urllib.request import urlretrieve
 
 DOWNLOADS = [
     ("https://github.com/latex-lsp/texlab/releases/download/v3.3.1/texlab-x86_64-linux.tar.gz",
-     tarfile.open, [("texlab", "~/bin/texlab")])
+     tarfile.open, [("texlab", "~/bin/")])
 ]
 
 LINKS = {
