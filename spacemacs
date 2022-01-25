@@ -42,10 +42,7 @@ This function should only modify configuration layer settings."
           lsp-restart 'auto-restart
           )
      (dap :variables
-	; don't display the mouse buttons
-	  dap-enable-ui-controls nil
-	; use the auto-configure layout, but no mouse buttons
-	  dap-auto-configure-features '(sessions locals breakpoints expressions tooltip))
+	  dap-enable-mouse-support t)
      (c-c++ :variables
             c-c++-backend 'lsp-clangd
             clang-format-style "file"
