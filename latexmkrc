@@ -8,6 +8,11 @@ sub drawio2pdf {
     system("drawio -f pdf -o \"$_[0].pdf\" -x \"$_[0].drawio\"" );
 }
 
+add_cus_dep('svg', 'pdf_tex', 0, 'inkscape2pdf_tex' );
+sub inkscape2pdf_tex {
+    system("inkscape --export-latex -export-pdf=\"$_[0].pdf\" -f \"$_[0].svg\"" );
+}
+
 # libreoffice dependencies
 add_cus_dep('ods', 'pdf', 0, 'ods2pdf');
 sub ods2pdf {
