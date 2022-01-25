@@ -90,14 +90,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# alias python to python3.8 if exists else just python3
-if which python3.8 > /dev/null; then
-    alias python="python3.8"
-else
-    alias python="python3"
-fi
 
-alias pip="python -m pip"
 export LESS='-R'
 export LESSOPEN='|pygmentize -g %s'
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
