@@ -81,12 +81,8 @@ This function should only modify configuration layer settings."
               LaTeX-section-label))
      markdown
      (python :variables
-             flycheck-python-flake8-executable "python3"
-             flycheck-python-pycompile-executable "python3"
-             flycheck-python-pylint-executable "python3"
-             flycheck-checker-error-threshold 2000
-	     python-shell-interpreter "ipython"
-	     python-shell-interpreter-args "--simple-prompt -i")
+	     python-backend 'lsp
+	     python-lsp-server 'pylsp)
      rust
      (shell :variables
              shell-default-height 30
