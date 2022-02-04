@@ -78,6 +78,7 @@ This function should only modify configuration layer settings."
               LaTeX-section-section
               LaTeX-section-label))
      markdown
+     galec
      (python :variables
 	     python-backend 'lsp
 	     python-lsp-server 'pylsp)

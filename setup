@@ -14,6 +14,7 @@ DOWNLOADS = [
 
 LINKS = {
     "spacemacs":"~/.spacemacs",
+    "layers/galec": "~/.emacs.d/private/galec",
     "Xdefaults":"~/.Xdefaults",
     "zshrc":"~/.zshrc",
     "i3config":"~/.config/i3/config",
