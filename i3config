@@ -194,6 +194,7 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 # disable floating windows for the update manager class of ubuntu systems
 for_window [class="update-manager"] floating disable
+for_window [window_role="pop-up"] floating disable
 
 # Sticky window
 for_window [instance="file_progress"]  sticky enable
