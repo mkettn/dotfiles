@@ -607,7 +607,11 @@ you should place your code here."
   ;; terminal and frame parameters:
   (set-terminal-parameter nil 'background-mode 'dark)
   (set-frame-parameter nil 'background-mode 'dark)
-
+  (with-eval-after-load 'markdown
+    (setq markdown-code-lang-modes
+	  (append '(("modelica" . galec-mode))
+		  markdown-code-lang-modes))
+      )
   ;; auto modes for custom file extensions
   (setq auto-mode-alist
 	(append '(("\\.gp$" . gnuplot-mode)
