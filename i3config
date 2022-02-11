@@ -182,7 +182,7 @@ bindsym Shift+Print exec scrot -s
 
 
 # change workspace layouts:
-bindsym $mod+c exec "$HOME/.screenlayout/conference.sh ; i3-msg '[workspace=2]' move workspace to output left"
+bindsym $mod+c exec "$HOME/.screenlayout/conference.sh ; i3-msg '[workspace=2]' move workspace to output left ; i3-msg '[workspace=2]' focus"
 bindsym $mod+x exec $HOME/bin/sanitize-screen
 
 
