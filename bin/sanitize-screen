@@ -1,7 +1,7 @@
 #!/bin/zsh
 if busctl get-property org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager Docked | grep true
 then
-    $HOME/.screenlayout/desktop-home.sh
+    $HOME/.screenlayout/$(hostname)/focus.sh
 else
-    $HOME/.screenlayout/laptop.sh
+    $HOME/.screenlayout/auto.sh
 fi
