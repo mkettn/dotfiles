@@ -200,6 +200,9 @@ for_window [window_role="pop-up"] floating disable
 for_window [instance="file_progress"]  sticky enable
 for_window [class="info|Mate-color-select|gcolor2|timesup|QtPass|GtkFileChooserDialog"] sticky enable
 
+# workspace pinning:
+assign [class=virt-viewer] 3
+
 # Local Variables:
 # mode: conf-space
 # End:
