@@ -201,7 +201,9 @@ for_window [instance="file_progress"]  sticky enable
 for_window [class="info|Mate-color-select|gcolor2|timesup|QtPass|GtkFileChooserDialog"] sticky enable
 
 # workspace pinning:
-assign [class=virt-viewer] 3
+assign [class="virt-viewer"] 3
+assign [class="emacs"] 1
+
 
 # Local Variables:
 # mode: conf-space
