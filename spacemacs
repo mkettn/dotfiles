@@ -103,12 +103,14 @@ This function should only modify configuration layer settings."
    spice-mode arduino-mode disaster elf-mode magit-lfs ox-pandoc
    ein flatbuffers-mode auth-source-pass w3m forge r-autoyas bazel
    nhexl-mode ebib ob-ipython dts-mode gnu-elpa-keyring-update
-   graphviz-dot-mode platformio-mode irony protobuf-mode nov)
+   graphviz-dot-mode platformio-mode irony protobuf-mode nov
+   all-the-icons-completion compat
+   )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(company-tern devdocs evil-magit)
+   dotspacemacs-excluded-packages '()
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -127,9 +129,13 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   ;; If non-nil then enable support for the portable dumper. You'll need
-   ;; to compile Emacs 27 from source following the instructions in file
+   ;; If non-nil then enable support for the portable dumper. You'll need to
+   ;; compile Emacs 27 from source following the instructions in file
    ;; EXPERIMENTAL.org at to root of the git repository.
+   ;;
+   ;; WARNING: pdumper does not work with Native Compilation, so it's disabled
+   ;; regardless of the following setting when native compilation is in effect.
+   ;;
    ;; (default nil)
    dotspacemacs-enable-emacs-pdumper nil
 
@@ -186,7 +192,7 @@ It should only modify the values of Spacemacs settings."
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
    ;; whenever you start Emacs. (default nil)
-   dotspacemacs-check-for-update nil
+   dotspacemacs-check-for-update t
 
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
@@ -213,6 +219,14 @@ It should only modify the values of Spacemacs settings."
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner nil
+
+   ;; Scale factor controls the scaling (size) of the startup banner. Default
+   ;; value is `auto' for scaling the logo automatically to fit all buffer
+   ;; contents, to a maximum of the full image height and a minimum of 3 line
+   ;; heights. If set to a number (int or float) it is used as a constant
+   ;; scaling factor for the default logo size.
+   dotspacemacs-startup-banner-scale 'auto
+
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -234,6 +248,11 @@ It should only modify the values of Spacemacs settings."
    ;; The minimum delay in seconds between number key presses. (default 0.4)
    dotspacemacs-startup-buffer-multi-digit-delay 0.4
 
+   ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
+   ;; This has no effect in terminal or if "all-the-icons" package or the font
+   ;; is not installed. (default nil)
+   dotspacemacs-startup-buffer-show-icons nil
+
    ;; Default major mode for a new empty buffer. Possible values are mode
    ;; names such as `text-mode'; and `nil' to use Fundamental mode.
    ;; (default `text-mode')
@@ -248,7 +267,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, `kill-buffer' on *scratch* buffer
    ;; will bury it instead of killing.
-   dotspacemacs-scratch-buffer-unkillable nil
+   dotspacemacs-scratch-buffer-unkillable t
 
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
@@ -258,7 +277,18 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(sanityinc-solarized-dark sanityinc-solarized-light)
-   ;; If non nil the cursor color matches the state color in GUI Emacs.
+
+   ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
+   ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
+   ;; first three are spaceline themes. `doom' is the doom-emacs mode-line.
+   ;; `vanilla' is default Emacs mode-line. `custom' is a user defined themes,
+   ;; refer to the DOCUMENTATION.org for more info on how to create your own
+   ;; spaceline theme. Value can be a symbol or list with additional properties.
+   ;; (default '(spacemacs :separator wave :separator-scale 1.5))
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+
+   ;; If non-nil the cursor color matches the state color in GUI Emacs.
+   ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
@@ -545,7 +575,8 @@ This function defines the environment variables for your Emacs session. By
 default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
-  (spacemacs/load-spacemacs-env))
+  (spacemacs/load-spacemacs-env)
+)
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -553,7 +584,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  )
+)
 
 
 (defun dotspacemacs/user-load ()
@@ -706,24 +737,22 @@ This function is called at the very end of Spacemacs initialization."
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(custom-safe-themes
-   (quote
-    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
+   '("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
  '(evil-want-Y-yank-to-eol nil)
  '(flycheck-lintr-linters "r-lintr")
  '(graphviz-dot-indent-width 4)
  '(package-selected-packages
-   (quote
-    (flatbuffers-mode posframe bibtex-completion intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode gnu-elpa-keyring-update let-alist spinner kubernetes anaphora helm-lsp nov esxml lsp-ui lsp-mode protobuf-mode dts-mode irony ob-ipython ein deferred websocket poly-R poly-noweb poly-markdown polymode ebib nhexl-mode transient lv r-autoyas forge closql emacsql-sqlite emacsql ess-smart-equals ess-R-data-view ctable ess julia-mode w3m auth-source-pass ox-pandoc ox-reveal mu4e-maildirs-extension mu4e-alert ht offlineimap rcirc-notify rcirc-color circe web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode magit-lfs treepy graphql x86-lookup spice-mode nasm-mode insert-shebang graphviz-dot-mode flyspell-popup fish-mode company-shell log4e gntp parent-mode request fringe-helper git-gutter+ git-gutter pos-tip flx anzu diminish bind-map auto-complete popup elf-mode yaml-mode erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks arduino-mode platformio-mode org-category-capture packed gitignore-mode s yasnippet-snippets sed-mode iedit highlight epl org-mime powerline csv-mode yasnippet async dash web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help org-ref pdf-tools key-chord ivy tablist helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex flyspell-correct ghub bind-key company helm helm-core avy magit-popup git-commit with-editor hydra helm-gtags ggtags org-plus-contrib yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc disaster cython-mode company-c-headers company-anaconda color-theme-solarized color-theme cmake-mode clang-format anaconda-mode pythonic org-pomodoro org-download evil-nerd-commenter ace-window ace-link smartparens f evil flycheck markdown-mode projectile magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin pkg-info persp-mode pcre2el paradox orgit org-projectile org-present org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag goto-chg google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diff-hl define-word company-statistics company-auctex column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alert aggressive-indent adaptive-wrap ace-jump-helm-line ac-ispell)))
+   '(json-par json-rpc jsonl flatbuffers-mode posframe bibtex-completion intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode gnu-elpa-keyring-update let-alist spinner kubernetes anaphora helm-lsp nov esxml lsp-ui lsp-mode protobuf-mode dts-mode irony ob-ipython ein deferred websocket poly-R poly-noweb poly-markdown polymode ebib nhexl-mode transient lv r-autoyas forge closql emacsql-sqlite emacsql ess-smart-equals ess-R-data-view ctable ess julia-mode w3m auth-source-pass ox-pandoc ox-reveal mu4e-maildirs-extension mu4e-alert ht offlineimap rcirc-notify rcirc-color circe web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode magit-lfs treepy graphql x86-lookup spice-mode nasm-mode insert-shebang graphviz-dot-mode flyspell-popup fish-mode company-shell log4e gntp parent-mode request fringe-helper git-gutter+ git-gutter pos-tip flx anzu diminish bind-map auto-complete popup elf-mode yaml-mode erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks arduino-mode platformio-mode org-category-capture packed gitignore-mode s yasnippet-snippets sed-mode iedit highlight epl org-mime powerline csv-mode yasnippet async dash web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data xterm-color unfill shell-pop mwim multi-term eshell-z eshell-prompt-extras esh-help org-ref pdf-tools key-chord ivy tablist helm-bibtex parsebib biblio biblio-core auctex-latexmk auctex flyspell-correct ghub bind-key company helm helm-core avy magit-popup git-commit with-editor hydra helm-gtags ggtags org-plus-contrib yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc disaster cython-mode company-c-headers company-anaconda color-theme-solarized color-theme cmake-mode clang-format anaconda-mode pythonic org-pomodoro org-download evil-nerd-commenter ace-window ace-link smartparens f evil flycheck markdown-mode projectile magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree toc-org spaceline smeargle restart-emacs rainbow-delimiters popwin pkg-info persp-mode pcre2el paradox orgit org-projectile org-present org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag goto-chg google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diff-hl define-word company-statistics company-auctex column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alert aggressive-indent adaptive-wrap ace-jump-helm-line ac-ispell))
  '(password-cache-expiry nil)
  '(safe-local-variable-values
-   (quote
-    ((TeX-command-master . make)
+   '((lsp-clients-clangd-args "--compile-commands-dir=build" "--suggest-missing-includes" "--clang-tidy" "--pch-storage=memory" "--background-index" "-j=4")
+     (TeX-command-master . make)
      (virtualenv-workon . "venv")
      (evil-shift-width . 4)
      (flyspell-mode)
      (csv-separators ";")
      (disaster-objdump . "arm-none-eabi-objdump -d -Sl --no-show-raw-insn")
-     (ispell-change-dictionary . "de_DE-neu"))))
+     (ispell-change-dictionary . "de_DE-neu")))
  '(vhdl-company-name "OFFIS e.V.")
  '(vhdl-file-header
    "-------------------------------------------------------------------------------
@@ -752,5 +781,5 @@ use ieee.std_logic_1164.all;
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )
