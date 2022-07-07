@@ -605,6 +605,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (define-key key-translation-map [dead-grave] "`")
+  (define-key key-translation-map [dead-acute] "'")
+  (define-key key-translation-map [dead-circumflex] "^")
+  (define-key key-translation-map [dead-diaeresis] "\"")
+  (define-key key-translation-map [dead-tilde] "~")
   ;; llvm
   (add-to-list 'load-path "~/dotfiles/emacs_modes/")
   (require 'tablegen-mode)
